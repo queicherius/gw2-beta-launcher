@@ -1,43 +1,40 @@
-var exec = require('child_process').exec;
-var remote = require('electron').remote;
+const exec = require('child_process').exec
+const remote = require('electron').remote
 
-console.log('Window shit')
-
+// Execute a shell command on the user's computer
 function execute (command, callback) {
-  exec(command, function (error, stdout, stderr) {
-    callback(stdout);
-  });
-};
+  exec(command, function (err, stdout) {
+    if (err) return handleError(err)
+    callback(stdout)
+  })
+}
 
-// execute(command, function (output) {
-//   console.log('Seems do be done patching');
-//
-//   setTimeout(function () {
-//     var window = remote.getCurrentWindow();
-//     window.close();
-//   }, 3000)
-// });
+// Close the browser window
+function quit () {
+  let currentWindow = remote.getCurrentWindow()
+  currentWindow.close()
+}
 
-document.querySelector(".login-btn").addEventListener("click", function (e) {
+// Show an error box on any errors
+function handleError (err) {
+  window.alert('An error happened. :(\n' + err.message)
+}
 
-  var username = document.querySelector('.login-name').value
-  var password = document.querySelector('.login-password').value
-  var command = '"C:\\Program Files (x86)\\Guild Wars 2\\Gw2.exe" -email "' + username + '" -password "' + password + '" -nopatchui'
-  console.log(command)
+// When the login button is clicked, start the official patcher
+document.querySelector('.login-button').addEventListener('click', function () {
+  let username = document.querySelector('.login-name').value
+  let password = document.querySelector('.login-password').value
 
-  // call the function
-  execute(command, function (output) {
-    console.log(output);
+  // -email sets the users username
+  // -password sets the users password
+  // -nopatchui skips the launcher UI
+  let command = `"C:\\Program Files (x86)\\Guild Wars 2\\Gw2.exe" -email "${username}" -password "${password}" -nopatchui`
 
-    setTimeout(function () {
-      var window = remote.getCurrentWindow();
-      window.close();
-    }, 3000)
-  });
+  // Run the patcher and close the browser window in the background after the game should have started
+  execute(command, function () {
+    setTimeout(quit, 5000)
+  })
+})
 
-});
-
-document.querySelector(".close-button").addEventListener("click", function (e) {
-  var window = remote.getCurrentWindow();
-  window.close();
-}); 
+// Close the window when the "quit" button is clicked
+document.querySelector('.close-button').addEventListener('click', quit)

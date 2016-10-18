@@ -15,16 +15,21 @@
 	<div class="clear-top-right"></div>
 
 	<!-- The form for the login information -->
+	<div class="login-form-background"></div>
 	<div class="login-form">
-		Account: <input type="text" class="login-name"><br>
-		Password: <input type="password" class="login-password"><br>
-		<input type="checkbox"> Save account name
-		<input type="checkbox"> Save Password
-		<input type="submit" value="Login" class="login-btn">
+		<div class="row">
+			<span class="label">Account Name:</span>
+			<input type="text" class="login-name" autofocus tabindex="1">
+			<input type="submit" value="Log In" class="login-button" tabindex="3">
+		</div>
+		<div class="row">
+			<span class="label">Password:</span>
+			<input type="password" class="login-password" tabindex="2">
+		</div>
 	</div>
 
 	<!-- The close button -->
-	<a class="close-button">Close</a>
+	<a class="close-button"></a>
 
 	<!-- Load in the actual application code -->
 	<script type="text/javascript">

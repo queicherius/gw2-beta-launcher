@@ -1,32 +1,108 @@
 * {
-    margin: 0;
-    padding: 0;
-    user-select: none;
+  margin: 0;
+  padding: 0;
+  user-select: none;
 }
 
 html, body {
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
+  font-family: Arial;
+  font-size: 13px;
 }
 
 video {
-    position: fixed;
-    right: 0;
-    height: 100%;
-    z-index: -100;
+  position: fixed;
+  right: 0;
+  height: 100%;
+  z-index: -100;
 }
 
 .clear-top-right {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 80px;
-    height: 30px;
-    background-color: white;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80px;
+  height: 30px;
+  background-color: white;
 }
 
-.login-form {
-    position: absolute;
-    left: 250px;
-    top: 50%;
+.login-form, .login-form-background {
+  position: absolute;
+  left: 250px;
+  width: 395px;
+  height: 170px;
+  padding: 40px 70px;
+  top: 50%;
+  z-index: 2;
+}
+
+.login-form-background {
+  background-image: url(./login-background.png);
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+  z-index: 1;
+}
+
+.login-form .row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3px;
+}
+
+.login-form .label {
+  width: 103px;
+  color: white;
+  text-shadow: 0 0 7px rgba(33, 33, 33, 0.8), 0 0 5px rgba(33, 33, 33, 0.8), 0 0 3px rgba(33, 33, 33, 0.8), 0 0 7px rgba(33, 33, 33, 0.8), 0 0 5px rgba(33, 33, 33, 0.8), 0 0 3px rgba(33, 33, 33, 0.8);
+}
+
+.login-form input[type="text"], .login-form input[type="password"] {
+  width: 135px;
+  padding: 5px;
+  border: 2px solid rgba(33, 33, 33, 0.8);
+  background: rgba(0, 0, 0, 0.3);
+  height: 13px;
+  outline: none;
+  color: white;
+}
+
+.login-button {
+  margin-left: 5px;
+  border: 2px solid rgba(88, 88, 88, 0.8);
+  padding: 2px 12px;
+  background-color: rgba(169, 169, 169, 0.75);
+  cursor: pointer;
+  outline: none;
+}
+
+.login-button:hover {
+  background-color: rgba(200, 200, 200, 0.75);
+}
+
+.close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 70px;
+  height: 45px;
+  cursor: pointer;
+  background-image: url(./top-right.png);
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
