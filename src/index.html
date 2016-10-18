@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Guild Wars2 Unofficial Beta Launcher</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+  	<!-- Background video -->
+	<video playsinline autoplay loop>
+	  <source src="./background.mp4" type="video/mp4">
+	</video>
+
+	<!-- Make sure the top right of the video does not have the buttons in -->
+	<div class="clear-top-right"></div>
+
+	<!-- The form for the login information -->
+	<div class="login-form">
+		Account: <input type="text" class="login-name"><br>
+		Password: <input type="password" class="login-password"><br>
+		<input type="checkbox"> Save account name
+		<input type="checkbox"> Save Password
+		<input type="submit" value="Login" class="login-btn">
+	</div>
+
+	<!-- The close button -->
+	<a class="close-button">Close</a>
+
+	<!-- Load in the actual application code -->
+	<script type="text/javascript">
+		require('./browser.js')
+	</script>
+  </body>
+</html>

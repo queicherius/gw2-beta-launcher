@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+video {
+    position: fixed;
+    right: 0;
+    height: 100%;
+    z-index: -100;
+}
+
+.clear-top-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80px;
+    height: 30px;
+    background-color: white;
+}
+
+.login-form {
+    position: absolute;
+    left: 250px;
+    top: 50%;
+}
