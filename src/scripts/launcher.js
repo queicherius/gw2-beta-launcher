@@ -1,5 +1,6 @@
 const exec = require('child_process').exec
 const remote = require('electron').remote
+const config = new (require('electron-config'))()
 const {encrypt, decrypt} = require('./crypto.js')
 
 // Bind event handlers and execute function on load
@@ -23,10 +24,10 @@ function quit () {
 
 // Load the previously saved username and password
 function loadLoginData () {
-  let savedUsername = localStorage.getItem('username')
-  let savedPassword = localStorage.getItem('password')
-  let savedRememberUsername = localStorage.getItem('rememberUsername') === 'true'
-  let savedRememberPassword = localStorage.getItem('rememberPassword') === 'true'
+  let savedUsername = config.get('username')
+  let savedPassword = config.get('password')
+  let savedRememberUsername = config.get('rememberUsername')
+  let savedRememberPassword = config.get('rememberPassword')
 
   document.querySelector('#login-remember-name').checked = savedRememberUsername
   document.querySelector('#login-remember-password').checked = savedRememberPassword
@@ -48,6 +49,7 @@ function logIntoGame () {
   // Do some dumb validation
   if (!username.match(/@/) || password === '') {
     window.alert('Email or password are not set')
+    return
   }
 
   // If the user wants to, let them save their username and password
@@ -55,20 +57,20 @@ function logIntoGame () {
   let rememberPassword = document.querySelector('#login-remember-password').checked
 
   if (rememberUsername) {
-    localStorage.setItem('username', username)
-    localStorage.setItem('rememberUsername', true)
+    config.set('username', username)
+    config.set('rememberUsername', true)
   } else {
-    localStorage.removeItem('username')
-    localStorage.setItem('rememberUsername', false)
+    config.delete('username')
+    config.set('rememberUsername', false)
   }
 
   if (rememberPassword) {
-    localStorage.setItem('password', encrypt(password))
-    localStorage.setItem('rememberPassword', true)
+    config.set('password', encrypt(password))
+    config.set('rememberPassword', true)
   } else {
-    localStorage.removeItem('password')
-    localStorage.removeItem('salt')
-    localStorage.setItem('rememberPassword', false)
+    config.delete('password')
+    config.delete('salt')
+    config.set('rememberPassword', false)
   }
 
   // -email sets the users username
