@@ -22,14 +22,5 @@ app.on('ready', createWindow)
 
 // Actually quit the application on OS X
 app.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
-
-// Actually open the application on OS X
-app.on('activate', function () {
-  if (mainWindow === null) {
-    createWindow()
-  }
+  app.quit()
 })
