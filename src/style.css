@@ -1,7 +1,7 @@
 * {
   margin: 0;
   padding: 0;
-  user-select: none;
+  -webkit-user-select: none;
 }
 
 html, body {
@@ -16,6 +16,11 @@ video {
   right: 0;
   height: 100%;
   z-index: -100;
+}
+
+.shadow-text {
+  color: white;
+  text-shadow: 0 0 7px rgba(33, 33, 33, 0.8), 0 0 5px rgba(33, 33, 33, 0.8), 0 0 3px rgba(33, 33, 33, 0.8), 0 0 7px rgba(33, 33, 33, 0.8), 0 0 5px rgba(33, 33, 33, 0.8), 0 0 3px rgba(33, 33, 33, 0.8);
 }
 
 .clear-top-right {
@@ -53,10 +58,13 @@ video {
   margin-bottom: 3px;
 }
 
+.login-form .tick-row {
+  margin-top: 9px;
+  margin-bottom: 6px;
+}
+
 .login-form .label {
   width: 103px;
-  color: white;
-  text-shadow: 0 0 7px rgba(33, 33, 33, 0.8), 0 0 5px rgba(33, 33, 33, 0.8), 0 0 3px rgba(33, 33, 33, 0.8), 0 0 7px rgba(33, 33, 33, 0.8), 0 0 5px rgba(33, 33, 33, 0.8), 0 0 3px rgba(33, 33, 33, 0.8);
 }
 
 .login-form input[type="text"], .login-form input[type="password"] {
@@ -67,6 +75,10 @@ video {
   height: 13px;
   outline: none;
   color: white;
+}
+
+.login-form input[type="checkbox"] {
+  margin-right: 5px;
 }
 
 .login-button {

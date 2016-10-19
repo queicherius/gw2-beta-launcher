@@ -18,13 +18,21 @@
 	<div class="login-form-background"></div>
 	<div class="login-form">
 		<div class="row">
-			<span class="label">Account Name:</span>
-			<input type="text" class="login-name" autofocus tabindex="1">
+			<span class="label shadow-text">Account Name:</span>
+			<input type="text" id="login-name" autofocus tabindex="1">
 			<input type="submit" value="Log In" class="login-button" tabindex="3">
 		</div>
 		<div class="row">
-			<span class="label">Password:</span>
-			<input type="password" class="login-password" tabindex="2">
+			<span class="label shadow-text">Password:</span>
+			<input type="password" id="login-password" tabindex="2">
+		</div>
+		<div class="tick-row row">
+			<input type="checkbox" id="login-remember-name">
+			<label class="shadow-text" for="login-remember-name">Remember Account Name</label>
+		</div>
+		<div class="row">
+			<input type="checkbox" id="login-remember-password">
+			<label class="shadow-text" for="login-remember-password">Remember Password</label>
 		</div>
 	</div>
 

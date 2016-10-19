@@ -1,6 +1,11 @@
 const exec = require('child_process').exec
 const remote = require('electron').remote
 
+// Bind event handlers and execute function on load
+document.querySelector('.login-button').addEventListener('click', logIntoGame)
+document.querySelector('.close-button').addEventListener('click', quit)
+loadLoginData()
+
 // Execute a shell command on the user's computer
 function execute (command, callback) {
   exec(command, function (err, stdout) {
@@ -20,10 +25,49 @@ function handleError (err) {
   window.alert('An error happened. :(\n' + err.message)
 }
 
-// When the login button is clicked, start the official patcher
-document.querySelector('.login-button').addEventListener('click', function () {
-  let username = document.querySelector('.login-name').value
-  let password = document.querySelector('.login-password').value
+// Load the previously saved username and password
+function loadLoginData () {
+  let savedUsername = localStorage.getItem('username')
+  let savedPassword = localStorage.getItem('password')
+  let savedRememberUsername = localStorage.getItem('rememberUsername') === 'true'
+  let savedRememberPassword = localStorage.getItem('rememberPassword') === 'true'
+
+  document.querySelector('#login-remember-name').checked = savedRememberUsername
+  document.querySelector('#login-remember-password').checked = savedRememberPassword
+
+  if (savedUsername) {
+    document.querySelector('#login-name').value = savedUsername
+  }
+
+  if (savedPassword) {
+    document.querySelector('#login-password').value = savedPassword
+  }
+}
+
+// Start the official patcher with the supplied username and password
+function logIntoGame () {
+  let username = document.querySelector('#login-name').value
+  let password = document.querySelector('#login-password').value
+
+  // If the user wants to, let them save their username and password
+  let rememberUsername = document.querySelector('#login-remember-name').checked
+  let rememberPassword = document.querySelector('#login-remember-password').checked
+
+  if (rememberUsername) {
+    localStorage.setItem('username', username)
+    localStorage.setItem('rememberUsername', true)
+  } else {
+    localStorage.removeItem('username')
+    localStorage.setItem('rememberUsername', false)
+  }
+
+  if (rememberPassword) {
+    localStorage.setItem('password', password)
+    localStorage.setItem('rememberPassword', true)
+  } else {
+    localStorage.removeItem('password')
+    localStorage.setItem('rememberPassword', false)
+  }
 
   // -email sets the users username
   // -password sets the users password
@@ -34,7 +78,4 @@ document.querySelector('.login-button').addEventListener('click', function () {
   execute(command, function () {
     setTimeout(quit, 5000)
   })
-})
-
-// Close the window when the "quit" button is clicked
-document.querySelector('.close-button').addEventListener('click', quit)
+}
