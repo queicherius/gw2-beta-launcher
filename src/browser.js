@@ -10,7 +10,7 @@ loadLoginData()
 // Execute a shell command on the user's computer
 function execute (command, callback) {
   exec(command, function (err, stdout) {
-    if (err) return handleError(err)
+    if (err) return window.alert('Executing a shell command failed')
     callback(stdout)
   })
 }
@@ -19,11 +19,6 @@ function execute (command, callback) {
 function quit () {
   let currentWindow = remote.getCurrentWindow()
   currentWindow.close()
-}
-
-// Show an error box on any errors
-function handleError (err) {
-  window.alert('An error happened. :(\n' + err.message)
 }
 
 // Load the previously saved username and password
@@ -49,6 +44,11 @@ function loadLoginData () {
 function logIntoGame () {
   let username = document.querySelector('#login-name').value
   let password = document.querySelector('#login-password').value
+
+  // Do some dumb validation
+  if (!username.match(/@/) || password === '') {
+    window.alert('Email or password are not set')
+  }
 
   // If the user wants to, let them save their username and password
   let rememberUsername = document.querySelector('#login-remember-name').checked
