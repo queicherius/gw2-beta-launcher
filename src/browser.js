@@ -1,5 +1,6 @@
 const exec = require('child_process').exec
 const remote = require('electron').remote
+const {encrypt, decrypt} = require('./crypto.js')
 
 // Bind event handlers and execute function on load
 document.querySelector('.login-button').addEventListener('click', logIntoGame)
@@ -40,7 +41,7 @@ function loadLoginData () {
   }
 
   if (savedPassword) {
-    document.querySelector('#login-password').value = savedPassword
+    document.querySelector('#login-password').value = decrypt(savedPassword)
   }
 }
 
@@ -62,10 +63,11 @@ function logIntoGame () {
   }
 
   if (rememberPassword) {
-    localStorage.setItem('password', password)
+    localStorage.setItem('password', encrypt(password))
     localStorage.setItem('rememberPassword', true)
   } else {
     localStorage.removeItem('password')
+    localStorage.removeItem('salt')
     localStorage.setItem('rememberPassword', false)
   }
 
