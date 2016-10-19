@@ -7,7 +7,7 @@
   "private": "true",
   "scripts": {
     "start": "electron .",
-    "build": "rm -rf build/ && electron-packager . --all --icon=src/favicon --out=build/",
+    "build": "rm -rf build/ && electron-packager . --platform=darwin,win32 --arch=ia32,x64 --asar --no-prune --overwrite --icon=src/favicon --out=build/",
     "test": "snazzy src/**/*.js"
   },
   "devDependencies": {
