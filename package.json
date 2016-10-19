@@ -7,7 +7,7 @@
   "private": "true",
   "scripts": {
     "start": "electron .",
-    "build": "rm -rf build/ && electron-packager . --all --out=build/",
+    "build": "rm -rf build/ && electron-packager . --all --icon=src/favicon --out=build/",
     "test": "snazzy src/**/*.js"
   },
   "devDependencies": {
