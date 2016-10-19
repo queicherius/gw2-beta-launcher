@@ -23,15 +23,6 @@ video {
   text-shadow: 0 0 7px rgba(33, 33, 33, 0.8), 0 0 5px rgba(33, 33, 33, 0.8), 0 0 3px rgba(33, 33, 33, 0.8), 0 0 7px rgba(33, 33, 33, 0.8), 0 0 5px rgba(33, 33, 33, 0.8), 0 0 3px rgba(33, 33, 33, 0.8);
 }
 
-.clear-top-right {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 80px;
-  height: 30px;
-  background-color: white;
-}
-
 .login-form, .login-form-background {
   position: absolute;
   left: 250px;
@@ -101,7 +92,7 @@ video {
   width: 70px;
   height: 45px;
   cursor: pointer;
-  background-image: url(./top-right.png);
+  background-image: url(./close-button.png);
   animation-name: fadeIn;
   animation-duration: 1s;
   animation-delay: 2s;
