@@ -7,9 +7,9 @@ let mainWindow
 
 // Create the browser window with all of our shiny content
 function createWindow () {
-  mainWindow = new BrowserWindow({frame: false, icon: __dirname + '/favicon.png'})
+  mainWindow = new BrowserWindow({frame: false, icon: __dirname + '/assets/favicon.png'})
   mainWindow.setFullScreen(true)
-  mainWindow.loadURL(`file://${__dirname}/index.html`)
+  mainWindow.loadURL(`file://${__dirname}/../launcher.html`)
 
   // Attach the close handler
   mainWindow.on('closed', function () {

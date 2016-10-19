@@ -3,11 +3,11 @@
   "name": "gw2-beta-launcher",
   "productName": "Guild Wars 2 Unofficial Beta Launcher",
   "description": "An inofficial launcher for Guild Wars 2, simulating the experience of the first beta launcher",
-  "main": "src/electron.js",
+  "main": "src/scripts/electron.js",
   "private": "true",
   "scripts": {
     "start": "electron .",
-    "build": "rm -rf build/ && electron-packager . --platform=darwin,win32 --arch=ia32,x64 --asar --no-prune --overwrite --icon=src/favicon --out=build/",
+    "build": "rm -rf build/ && electron-packager . --platform=darwin,win32 --arch=ia32,x64 --asar --no-prune --overwrite --icon=src/assets/favicon --out=build/",
     "test": "snazzy src/**/*.js"
   },
   "devDependencies": {

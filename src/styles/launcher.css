@@ -34,7 +34,7 @@ video {
 }
 
 .login-form-background {
-  background-image: url(./login-background.png);
+  background-image: url(../assets/login-background.png);
   animation-name: fadeIn;
   animation-duration: 1s;
   animation-delay: 2s;
@@ -92,7 +92,7 @@ video {
   width: 70px;
   height: 45px;
   cursor: pointer;
-  background-image: url(./close-button.png);
+  background-image: url(../assets/close-button.png);
   animation-name: fadeIn;
   animation-duration: 1s;
   animation-delay: 2s;
