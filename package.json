@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "1.0.0",
   "name": "gw2-beta-launcher",
   "productName": "Guild Wars 2 Unofficial Beta Launcher",
   "description": "An inofficial launcher for Guild Wars 2, simulating the experience of the first beta launcher",
@@ -7,12 +7,12 @@
   "private": "true",
   "scripts": {
     "start": "electron .",
-    "build": "rm -rf build/ && electron-packager . --platform=darwin,win32 --arch=ia32,x64 --asar --no-prune --overwrite --icon=src/assets/favicon --out=build/",
+    "build": "rm -rf build/ && electron-zip-packager . --platform=darwin,win32 --arch=ia32,x64 --asar --icon=src/assets/favicon --out=build/ && rm -rf build/*[!.zip]",
     "test": "snazzy src/**/*.js"
   },
   "devDependencies": {
     "electron": "^1.4.1",
-    "electron-packager": "^8.1.0",
+    "electron-zip-packager": "^4.0.0",
     "snazzy": "^5.0.0"
   },
   "dependencies": {
