@@ -7,6 +7,7 @@ const {encrypt, decrypt} = require('./crypto.js')
 document.querySelector('.login-button').addEventListener('click', logIntoGame)
 document.querySelector('.close-button').addEventListener('click', quit)
 loadLoginData()
+startPatching()
 
 // Start the launcher with a set of arguments
 function startLauncher (arguments, callback) {
@@ -15,8 +16,18 @@ function startLauncher (arguments, callback) {
     ? `"${executablePath}" ${arguments}`
     : `${executablePath.replace(/ /g, '\\ ')}/contents/MacOS/cider --use-dos-cwd C:GW2 -- C:\\\\GW2\\\\GW2.exe ${arguments}`
 
+  // [HACKY] Make sure the launcher stays in focus
+  const focusInterval = setInterval(() => {
+    remote.getCurrentWindow().focus()
+  }, 100)
+
+  setTimeout(() => {
+    focusInterval ? clearInterval(focusInterval) : 'noop'
+  }, 3000)
+
   exec(command, function (err, stdout) {
     if (err) return window.alert('Failed starting the launcher')
+    focusInterval ? clearInterval(focusInterval) : 'noop'
     callback(stdout)
   })
 }
@@ -44,6 +55,24 @@ function loadLoginData () {
   if (savedPassword) {
     document.querySelector('#login-password').value = decrypt(savedPassword)
   }
+}
+
+// Start the official launcher to download the newest patch
+function startPatching () {
+  let patching = true
+
+  startLauncher('-image', function () {
+    patching = false
+    document.querySelector('.patch-text').innerHTML = 'Finished patching'
+    document.querySelector('.login-button').disabled = false
+  })
+
+  // Show a fake status change if there seems to be stuff to download :>
+  setTimeout(() => {
+    if (patching) {
+      document.querySelector('.patch-text').innerHTML = 'Downloading patch...'
+    }
+  }, 5000)
 }
 
 // Start the official patcher with the supplied username and password

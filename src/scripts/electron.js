@@ -12,8 +12,17 @@ function createWindow () {
   var disclaimerTicked = config.get('disclaimerTicked')
   var executablePath = getExecutablePath()
 
-  mainWindow = new BrowserWindow({frame: false, icon: `${__dirname}/assets/favicon.png`})
-  mainWindow.setFullScreen(true)
+  mainWindow = new BrowserWindow({
+    frame: false,
+    icon: `${__dirname}/assets/favicon.png`
+  })
+
+  // If the window is fullscreen on mac, it causes screen flickering :(
+  if (process.platform === 'win32') {
+    mainWindow.setFullScreen(true)
+  } else {
+    mainWindow.maximize()
+  }
 
   // Load the starting page based on what the user filled out already
   if (!disclaimerTicked) {

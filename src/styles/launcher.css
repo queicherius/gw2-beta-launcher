@@ -109,3 +109,10 @@ video {
     opacity: 1;
   }
 }
+
+.patch-text {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  color: gray;
+}
