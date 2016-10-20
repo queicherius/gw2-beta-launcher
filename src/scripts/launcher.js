@@ -1,6 +1,6 @@
-const exec = require('child_process').exec
 const remote = require('electron').remote
 const config = new (require('electron-config'))()
+const startLauncher = require('./startLauncher.js')
 const {encrypt, decrypt} = require('./crypto.js')
 
 // Bind event handlers and execute function on load
@@ -8,28 +8,6 @@ document.querySelector('.login-button').addEventListener('click', logIntoGame)
 document.querySelector('.close-button').addEventListener('click', quit)
 loadLoginData()
 startPatching()
-
-// Start the launcher with a set of arguments
-function startLauncher (arguments, callback) {
-  const executablePath = config.get('executablePath')
-  const command = process.platform === 'win32'
-    ? `"${executablePath}" ${arguments}`
-    : `${executablePath.replace(/ /g, '\\ ')}/contents/MacOS/cider --use-dos-cwd C:GW2 -- C:\\\\GW2\\\\GW2.exe ${arguments}`
-
-  // [HACKY] Make sure the launcher stays in focus
-  const focusInterval = setInterval(() => {
-    remote.getCurrentWindow().focus()
-  }, 100)
-
-  setTimeout(() => {
-    focusInterval ? clearInterval(focusInterval) : 'noop'
-  }, 3000)
-
-  exec(command, function (err, stdout) {
-    focusInterval ? clearInterval(focusInterval) : 'noop'
-    callback(err, stdout)
-  })
-}
 
 // Close the browser window
 function quit () {
@@ -60,13 +38,17 @@ function loadLoginData () {
 function startPatching () {
   let patching = true
 
-  startLauncher('-image', function (err) {
-    patching = false
-    document.querySelector('.patch-text').innerHTML = err
-      ? 'Failed patching, please start the official launcher'
-      : 'Finished patching'
-    document.querySelector('.login-button').disabled = err ? true : false
-  })
+  startLauncher('-image')
+    .then(() => {
+      patching = false
+      document.querySelector('.patch-text').innerHTML = 'Game is up to date!'
+      document.querySelector('.login-button').disabled = false
+    })
+    .catch(() => {
+      patching = false
+      document.querySelector('.patch-text').innerHTML = 'Failed patching, please start the official launcher!'
+      document.querySelector('.login-button').disabled = true
+    })
 
   // Show a fake status change if there seems to be stuff to download :>
   setTimeout(() => {
@@ -110,10 +92,9 @@ function logIntoGame () {
 
   // Run the launcher and close the browser window in the background after the game should have started
   const quitTimeout = setTimeout(quit, 5000)
-  startLauncher(`-email "${username}" -password "${password}" -nopatchui`, function (err) {
-    if (err) {
+  startLauncher(`-email "${username}" -password "${password}" -nopatchui`)
+    .catch(() => {
       clearTimeout(quitTimeout)
       return window.alert('Failed starting the launcher')
-    }
-  })
+    })
 }
