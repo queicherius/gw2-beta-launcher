@@ -13,7 +13,7 @@ function startLauncher (arguments, callback) {
   const executablePath = config.get('executablePath')
   const command = process.platform === 'win32'
     ? `"${executablePath}" ${arguments}`
-    : `${executablePath}/contents/MacOS/cider --use-dos-cwd C:GW2 -- C:\\GW2\\GW2.exe ${arguments}`
+    : `${executablePath.replace(/ /g, '\\ ')}/contents/MacOS/cider --use-dos-cwd C:GW2 -- C:\\\\GW2\\\\GW2.exe ${arguments}`
 
   exec(command, function (err, stdout) {
     if (err) return window.alert('Failed starting the launcher')

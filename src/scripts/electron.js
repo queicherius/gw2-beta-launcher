@@ -33,7 +33,7 @@ function createWindow () {
 // Get the path of the gw2 launcher
 function getExecutablePath () {
   let possiblePaths = [
-    '/Applications/Guild\ Wars\ 2.app',
+    '/Applications/Guild Wars 2.app',
     'C:\\Program Files\\Guild Wars 2\\Gw2.exe',
     'C:\\Program Files (x86)\\Guild Wars 2\\Gw2.exe'
   ]
