@@ -2,6 +2,7 @@ const exec = require('child_process').exec
 const remote = require('electron').remote
 const config = new (require('electron-config'))()
 const {encrypt, decrypt} = require('./crypto.js')
+const executablePath = config.get('executablePath')
 
 // Bind event handlers and execute function on load
 document.querySelector('.login-button').addEventListener('click', logIntoGame)
@@ -76,7 +77,7 @@ function logIntoGame () {
   // -email sets the users username
   // -password sets the users password
   // -nopatchui skips the launcher UI
-  let command = `"C:\\Program Files (x86)\\Guild Wars 2\\Gw2.exe" -email "${username}" -password "${password}" -nopatchui`
+  let command = `"${executablePath}" -email "${username}" -password "${password}" -nopatchui`
 
   // Run the patcher and close the browser window in the background after the game should have started
   execute(command, function () {

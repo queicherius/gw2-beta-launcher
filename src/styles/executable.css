@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-user-select: none;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+body > * {
+  margin-bottom: 25px;
+}
+
+.confirm-button {
+  display: block;
+  padding: 7px 10px;
+  color: white;
+  text-decoration: none;
+  background-color: #c90100;
+  font-size: 1.2em;
+}
