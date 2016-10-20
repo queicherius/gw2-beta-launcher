@@ -4,6 +4,7 @@ const algorithm = 'aes-256-ctr'
 const keyphrase = 'pg7DJ18RsIcgT11WSmnY4tlDbKtOJHGa3H2qGQ892a9Lf7WLe9yVxX36XI20MVFm'
 
 function encrypt (text) {
+  // Every time the password gets encrypted, generate a fresh random salt
   let salt = crypto.randomBytes(16).toString('hex')
   config.set('salt', salt)
 

@@ -2,17 +2,21 @@ const exec = require('child_process').exec
 const remote = require('electron').remote
 const config = new (require('electron-config'))()
 const {encrypt, decrypt} = require('./crypto.js')
-const executablePath = config.get('executablePath')
 
 // Bind event handlers and execute function on load
 document.querySelector('.login-button').addEventListener('click', logIntoGame)
 document.querySelector('.close-button').addEventListener('click', quit)
 loadLoginData()
 
-// Execute a shell command on the user's computer
-function execute (command, callback) {
+// Start the launcher with a set of arguments
+function startLauncher (arguments, callback) {
+  const executablePath = config.get('executablePath')
+  const command = process.platform === 'win32'
+    ? `"${executablePath}" ${arguments}`
+    : `${executablePath}/contents/MacOS/cider --use-dos-cwd C:GW2 -- C:\\GW2\\GW2.exe ${arguments}`
+
   exec(command, function (err, stdout) {
-    if (err) return window.alert('Executing a shell command failed')
+    if (err) return window.alert('Failed starting the launcher')
     callback(stdout)
   })
 }
@@ -47,7 +51,7 @@ function logIntoGame () {
   let username = document.querySelector('#login-name').value
   let password = document.querySelector('#login-password').value
 
-  // Do some dumb validation
+  // Do some trivial validation
   if (!username.match(/@/) || password === '') {
     window.alert('Email or password are not set')
     return
@@ -74,13 +78,8 @@ function logIntoGame () {
     config.set('rememberPassword', false)
   }
 
-  // -email sets the users username
-  // -password sets the users password
-  // -nopatchui skips the launcher UI
-  let command = `"${executablePath}" -email "${username}" -password "${password}" -nopatchui`
-
-  // Run the patcher and close the browser window in the background after the game should have started
-  execute(command, function () {
-    setTimeout(quit, 5000)
+  // Run the launcher and close the browser window in the background after the game should have started
+  startLauncher(`-email "${username}" -password "${password}" -nopatchui`, function () {
+    setTimeout(quit, 10000)
   })
 }
