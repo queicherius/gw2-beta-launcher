@@ -41,19 +41,19 @@ function startPatching () {
   startLauncher('-image')
     .then(() => {
       patching = false
-      document.querySelector('.patch-text').innerHTML = 'Game is up to date!'
+      document.querySelector('.patch-status').innerHTML = 'Game is up to date!'
       document.querySelector('.login-button').disabled = false
     })
     .catch(() => {
       patching = false
-      document.querySelector('.patch-text').innerHTML = 'Failed patching, please start the official launcher!'
+      document.querySelector('.patch-status').innerHTML = 'Failed patching, please start the official launcher!'
       document.querySelector('.login-button').disabled = true
     })
 
   // Show a fake status change if there seems to be stuff to download :>
   setTimeout(() => {
     if (patching) {
-      document.querySelector('.patch-text').innerHTML = 'Downloading patch...'
+      document.querySelector('.patch-status').innerHTML = 'Downloading patch...'
     }
   }, 5000)
 }

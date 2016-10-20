@@ -125,3 +125,7 @@ video {
   left: 5px;
   color: gray;
 }
+
+.patch-text a {
+  color: gray;
+}

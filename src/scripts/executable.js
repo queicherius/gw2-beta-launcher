@@ -3,11 +3,13 @@ const dialog = require('electron').remote.dialog
 
 // Bind event handlers
 document.querySelector('.confirm-button').addEventListener('click', setExecutablePath)
+showBackButton()
 
 // Save executable that the user picked
 function setExecutablePath () {
   let path = dialog.showOpenDialog({
-    properties: ['openFile'], filters: [{name: 'Application', extensions: ['exe', 'app']}]
+    properties: ['openFile'],
+    filters: [{name: 'Application', extensions: ['exe', 'app']}]
   })
 
   // If the path is not set (e.g. via "abort") or got set to a wrong file type, exit
@@ -18,4 +20,12 @@ function setExecutablePath () {
   // Save the path and start the actual launcher
   config.set('executablePath', path[0])
   window.location.href = `file://${__dirname}/../launcher.html`
+}
+
+// Show the back button if the user has a path set
+function showBackButton () {
+  const executablePath = config.get('executablePath')
+  if (executablePath) {
+    document.querySelector('.back-button').style.display = 'block'
+  }
 }

@@ -31,3 +31,11 @@ body > * {
   background-color: #c90100;
   font-size: 1.2em;
 }
+
+code {
+  background: #e9e9e9;
+}
+
+.back-button {
+  display: none;
+}
