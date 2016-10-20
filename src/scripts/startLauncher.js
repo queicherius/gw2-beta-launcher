@@ -89,7 +89,7 @@ function launcherIsRunning () {
 
   // Windows
   if (process.platform === 'win32') {
-    const nameRegex = new RegExp(executablePath.replace(/.*[\\\/](.*?)\.exe$/, '$1') + '(-64)?\.exe')
+    const nameRegex = new RegExp(executablePath.replace(/.*[\\\/](.*?)\.exe$/, '$1') + '(-64)?.exe')
     return runningProcesses().then(function (processes) {
       return processes
           .filter(process => process.name.match(nameRegex))
@@ -98,7 +98,7 @@ function launcherIsRunning () {
   }
 
   // Mac OS
-  const nameRegex = new RegExp(executablePath.replace(/.*[\\\/](.*?)\.app$/, '$1') + '(-64)?\.app')
+  const nameRegex = new RegExp(executablePath.replace(/.*[\\\/](.*?)\.app$/, '$1') + '(-64)?.app')
   return runningProcesses().then(function (processes) {
     return processes
         .filter(process => process.cmd.match(nameRegex))
