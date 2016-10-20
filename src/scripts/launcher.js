@@ -26,9 +26,8 @@ function startLauncher (arguments, callback) {
   }, 3000)
 
   exec(command, function (err, stdout) {
-    if (err) return window.alert('Failed starting the launcher')
     focusInterval ? clearInterval(focusInterval) : 'noop'
-    callback(stdout)
+    callback(err, stdout)
   })
 }
 
@@ -61,10 +60,12 @@ function loadLoginData () {
 function startPatching () {
   let patching = true
 
-  startLauncher('-image', function () {
+  startLauncher('-image', function (err) {
     patching = false
-    document.querySelector('.patch-text').innerHTML = 'Finished patching'
-    document.querySelector('.login-button').disabled = false
+    document.querySelector('.patch-text').innerHTML = err
+      ? 'Failed patching, please start the official launcher'
+      : 'Finished patching'
+    document.querySelector('.login-button').disabled = err ? true : false
   })
 
   // Show a fake status change if there seems to be stuff to download :>
@@ -108,7 +109,11 @@ function logIntoGame () {
   }
 
   // Run the launcher and close the browser window in the background after the game should have started
-  startLauncher(`-email "${username}" -password "${password}" -nopatchui`, function () {
-    setTimeout(quit, 10000)
+  const quitTimeout = setTimeout(quit, 5000)
+  startLauncher(`-email "${username}" -password "${password}" -nopatchui`, function (err) {
+    if (err) {
+      clearTimeout(quitTimeout)
+      return window.alert('Failed starting the launcher')
+    }
   })
 }
