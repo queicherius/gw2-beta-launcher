@@ -11,6 +11,15 @@ html, body {
   font-size: 13px;
 }
 
+.clear-top-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: white;
+  height: 25px;
+  width: 3%;
+}
+
 video {
   position: fixed;
   right: 0;

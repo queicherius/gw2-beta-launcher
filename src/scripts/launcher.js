@@ -4,7 +4,7 @@ const startLauncher = require('./startLauncher.js')
 const {encrypt, decrypt} = require('./crypto.js')
 
 // Bind event handlers and execute function on load
-document.querySelector('.login-button').addEventListener('click', logIntoGame)
+document.querySelector('.login-form').addEventListener('submit', logIntoGame)
 document.querySelector('.close-button').addEventListener('click', quit)
 loadLoginData()
 startPatching()
@@ -59,14 +59,15 @@ function startPatching () {
 }
 
 // Start the official patcher with the supplied username and password
-function logIntoGame () {
+function logIntoGame (e) {
+  e.preventDefault()
   let username = document.querySelector('#login-name').value
   let password = document.querySelector('#login-password').value
 
   // Do some trivial validation
   if (!username.match(/@/) || password === '') {
     window.alert('Email or password are not set')
-    return
+    return false
   }
 
   // If the user wants to, let them save their username and password
@@ -97,4 +98,6 @@ function logIntoGame () {
       clearTimeout(quitTimeout)
       return window.alert('Failed starting the launcher')
     })
+
+  return false
 }

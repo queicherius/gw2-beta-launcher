@@ -11,9 +11,12 @@
 	  <source src="./assets/background.mp4" type="video/mp4">
 	</video>
 
+	<!-- Clear the top right of the video -->
+	<div class="clear-top-right"></div>
+
 	<!-- The form for the login information -->
 	<div class="login-form-background"></div>
-	<div class="login-form">
+	<form class="login-form">
 		<div class="row">
 			<span class="label shadow-text">Account Name:</span>
 			<input type="text" id="login-name" tabindex="1">
@@ -31,7 +34,7 @@
 			<input type="checkbox" id="login-remember-password">
 			<label class="shadow-text" for="login-remember-password">Remember Password</label>
 		</div>
-	</div>
+	</form>
 
 	<!-- The text for patch status -->
 	<div class="patch-text">
