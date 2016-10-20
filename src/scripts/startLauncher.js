@@ -5,9 +5,7 @@ const config = new (require('electron-config'))()
 
 // Start the launcher with a set of arguments
 function startLauncher (args) {
-  const executableName = getExecutableName(config.get('executablePath'))
-
-  return checkRunning(executableName).then((running) => {
+  return launcherIsRunning().then((running) => {
     if (running) {
       window.alert('Guild Wars 2 is already running.')
       return Promise.reject()
@@ -43,7 +41,6 @@ function startLauncherMac (args) {
 
 function startLauncherWindows (args) {
   let executablePath = config.get('executablePath')
-  let executableRegex = getExecutableName(executablePath)
   let command = `"${executablePath}" ${args}`
 
   // Force the inofficial launcher into the foreground and the official one into the background
@@ -73,7 +70,7 @@ function startLauncherWindows (args) {
     }, 2000)
 
     function exitWhenDone () {
-      checkRunning(executableRegex).then((running) => {
+      launcherIsRunning().then((running) => {
         if (running) {
           return
         }
@@ -86,20 +83,25 @@ function startLauncherWindows (args) {
   })
 }
 
-// Get a regex off the name of the process, based on platform
-function getExecutableName (executable) {
-  if (process.platform === 'win32') {
-    return new RegExp(executable.replace(/.*[\\\/](.*)\.exe$/, '$1') + '(-64)?\.exe')
-  } else {
-    return new RegExp(executable.replace(/.*[\\\/](.*)\.app/, '$1') + '(-64)?\.app')
-  }
-}
-
 // Check if a process is running based on the name
-function checkRunning (nameRegex) {
+function launcherIsRunning () {
+  const executablePath = config.get('executablePath')
+
+  // Windows
+  if (process.platform === 'win32') {
+    const nameRegex = new RegExp(executablePath.replace(/.*[\\\/](.*?)\.exe$/, '$1') + '(-64)?\.exe')
+    return runningProcesses().then(function (processes) {
+      return processes
+          .filter(process => process.name.match(nameRegex))
+          .length > 0
+    })
+  }
+
+  // Mac OS
+  const nameRegex = new RegExp(executablePath.replace(/.*[\\\/](.*?)\.app$/, '$1') + '(-64)?\.app')
   return runningProcesses().then(function (processes) {
     return processes
-        .filter(process => process.name.match(nameRegex))
+        .filter(process => process.cmd.match(nameRegex))
         .length > 0
   })
 }
