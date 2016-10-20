@@ -5,7 +5,18 @@ const config = new (require('electron-config'))()
 
 // Start the launcher with a set of arguments
 function startLauncher (args) {
-  return process.platform === 'win32' ? startLauncherWindows(args) : startLauncherMac(args)
+  const executableName = getExecutableName(config.get('executablePath'))
+
+  return checkRunning(executableName).then((running) => {
+    if (running) {
+      window.alert('Guild Wars 2 is already running.')
+      return Promise.reject()
+    }
+
+    return process.platform === 'win32'
+      ? startLauncherWindows(args)
+      : startLauncherMac(args)
+  })
 }
 
 function startLauncherMac (args) {
