@@ -46,7 +46,7 @@ function startPatching () {
     })
     .catch(() => {
       patching = false
-      document.querySelector('.patch-status').innerHTML = 'Failed patching, please start the official launcher!'
+      document.querySelector('.patch-status').innerHTML = '<span style="color: red;">Failed patching with the official launcher (using ' + config.get('executablePath') + ').<br>Please start the official launcher manually!</span>'
       document.querySelector('.login-button').disabled = true
     })
 
@@ -96,7 +96,7 @@ function logIntoGame (e) {
   startLauncher(`-email "${username}" -password "${password}" -nopatchui`)
     .catch(() => {
       clearTimeout(quitTimeout)
-      return window.alert('Failed starting the launcher')
+      return window.alert('Failed starting the official launcher (using ' + config.get('executablePath') + ')')
     })
 
   return false

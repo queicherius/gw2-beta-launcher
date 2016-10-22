@@ -23,7 +23,7 @@ function startLauncherMac (args) {
 
   // Force the inofficial launcher into the foreground and the official one into the background
   const focusInterval = setInterval(() => remote.getCurrentWindow().focus(), 25)
-  setTimeout(() => focusInterval ? clearInterval(focusInterval) : 'noop', 3000)
+  setTimeout(() => focusInterval ? clearInterval(focusInterval) : 'noop', 10 * 1000)
 
   // Execute the command. This will keep running until the program exits (patching done / game closed)
   return new Promise((resolve, reject) => {
@@ -45,7 +45,7 @@ function startLauncherWindows (args) {
 
   // Force the inofficial launcher into the foreground and the official one into the background
   const focusInterval = setInterval(() => remote.getCurrentWindow().focus(), 25)
-  setTimeout(() => focusInterval ? clearInterval(focusInterval) : 'noop', 3000)
+  setTimeout(() => focusInterval ? clearInterval(focusInterval) : 'noop', 10 * 1000)
 
   return new Promise((resolve, reject) => {
     // Execute the command
@@ -67,7 +67,7 @@ function startLauncherWindows (args) {
     let checkInterval
     setTimeout(() => {
       checkInterval = setInterval(exitWhenDone, 500)
-    }, 2000)
+    }, 2 * 1000)
 
     function exitWhenDone () {
       launcherIsRunning().then((running) => {
