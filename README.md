@@ -13,7 +13,7 @@
 
 ## Downloads
 
-See the [releases page](https://github.com/queicherius/gw2-beta-launcher/releases).
+See the [releases page](https://github.com/queicherius/gw2-beta-launcher/releases/latest) for the latest Windows (32 bit / 64 bit) and Mac OS X build.
 
 ## FAQ
 
