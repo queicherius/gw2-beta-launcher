@@ -27,8 +27,8 @@ No, it only uses the [official command line arguments](https://wiki.guildwars2.c
 Yes, it's about as safe as remembering it in the official client. It's never sent over the wire. It is saved using AES 256 CTR with a salt that refreshes every time you log in.
 
 **Where are the options stored?**<br>
-`%APPDATA%/Roaming/Guild Wars 2 Unofficial Beta Launcher/config.json` on Windows<br>
-`~/Library/Application Support/Guild Wars 2 Unofficial Beta Launcher/config.json` on Mac OS
+`%APPDATA%/Guild Wars 2 Unofficial Beta Launcher/config.json` on Windows<br>
+`~/Library/Application Support/Guild Wars 2 Unofficial Beta Launcher/config.json` on macOS
 
 **My game freezes and shows a black / white screen!**<br>
 This means your account credentials were not correct.
