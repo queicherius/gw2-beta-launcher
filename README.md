@@ -1,6 +1,8 @@
-# gw2-beta-launcher
+### :boom: Careful: This is no longer maintained and is only here for historic reasons. You have been warned. :boom:
 
-[![No Maintenance Intended](https://img.shields.io/badge/No%20Maintenance%20Intended-%E2%9C%95-red.svg?style=flat-square)](http://unmaintained.tech/)
+---
+
+# gw2-beta-launcher
 
 > An inofficial launcher for Guild Wars2, simulating the experience of the first beta launcher.
 
